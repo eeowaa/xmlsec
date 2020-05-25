@@ -1,0 +1,55 @@
+<References>
+
+  <Book xml:id="BookBSchneier">
+    <Author>
+      <FirstName>Bruce</FirstName>
+      <LastName>Schneier</LastName>
+    </Author>
+    <Title>Applied Cryptography</Title>
+  </Book>
+
+  <Web>
+    <Title>XMLSec</Title>
+    <Url>http://www.aleksey.com/xmlsec/</Url>
+  </Web>
+
+  <!-- Enveloped signature -->
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+
+    <SignedInfo>
+
+      <!-- Canonicalization algorithm to run the XML through before signing -->
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+
+      <!-- Digital signature algorithm to run against the canonicalized XML -->
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+
+      <!-- XML to sign (element with case-sensitive `id' attribute of "BookBSchneier") -->
+      <Reference URI="#BookBSchneier">
+
+        <!-- Instruct the signer where to place the signature -->
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+        </Transforms>
+
+        <!-- Hash algorithm to run against canonicalized XML -->
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+
+        <!-- Placeholder for message digest of canonicalized XML -->
+        <DigestValue/>
+
+      </Reference>
+
+    </SignedInfo>
+
+    <!-- Placeholder for signature of this document -->
+    <SignatureValue/>
+
+    <!-- Placeholder for public key derived from private signing key -->
+    <KeyInfo>
+      <KeyValue/>
+    </KeyInfo>
+
+  </Signature>
+
+</References>

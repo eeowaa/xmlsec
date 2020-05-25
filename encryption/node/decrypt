@@ -1,0 +1,8 @@
+#!/bin/sh
+progdir=`dirname "$0"`
+. "$progdir/config.sh"
+
+set -x
+xmlsec1 --decrypt \
+        --privkey-pem "$private_key" \
+        "$encrypted_xmldoc"

@@ -1,0 +1,26 @@
+#!/bin/sh -x
+
+# Generate a 2048-bit RSA private key, write it to a file without using DES
+# encryption, and then generate a self-signed X.509 certificate using the RSA
+# key, setting it to expire 10 years from today (counting 2 leap days).
+openssl req 2>/dev/null \
+    -newkey rsa:2048 -keyout test.key -nodes \
+    -x509 -out test.cer -days 3652 <<EOF
+Example Country
+Example State
+Example Locality
+Example Organization Name
+Example Organizational Unit Name
+Example Common Name
+Example Email Address
+EOF
+
+# Derive and store the public key from our key pair (i.e. private key)
+openssl pkey -in test.key -pubout -out pubkey.pem
+
+# Bundle the private RSA key and X.509 certificate into a PKCS#12 archive,
+# write it to a file without encrypting the private key portion, and set the
+# required PKCS#12 password to an empty string.
+openssl pkcs12 \
+    -export -in test.cer -inkey test.key \
+    -out test.pfx -nodes -password pass:

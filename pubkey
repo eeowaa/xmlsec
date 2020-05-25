@@ -1,0 +1,33 @@
+#!/bin/sh
+## Output <KeyValue> for public key
+{
+    # Print contents of public key ASN.1 object starting at offset 19,
+    # which is where the modulus and public exponent start [1]
+    openssl asn1parse -in pubkey.pem -strparse 19
+}|{
+    # Print modulus and exponent of public key
+    awk -F: '$1 == 4 || $1 == 265 { print $NF }'
+}|{
+    # Revert hex-string representations to plain binary [2]
+    read mod
+    read exp
+    b64mod=`echo "$mod" | xxd -revert -plain | base64 -w64`
+    b64exp=`echo "$exp" | xxd -revert -plain | base64 -w64`
+
+    # Output <KeyValue> for public key
+    cat <<EOF
+<KeyValue>
+<RSAKeyValue>
+<Modulus>
+$b64mod
+</Modulus>
+<Exponent>
+$b64exp
+</Exponent>
+</RSAKeyValue>
+</KeyValue>
+EOF
+}
+
+# 1. https://stackoverflow.com/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key#3117100
+# 2. https://unix.stackexchange.com/questions/82561/convert-a-hex-string-to-binary-and-send-with-netcat

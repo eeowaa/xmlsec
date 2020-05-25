@@ -1,0 +1,11 @@
+#!/bin/sh
+progdir=`dirname "$0"`
+. "$progdir/config.sh"
+
+set -x
+xmlsec1 --sign \
+        --output "$signed_xmldoc" \
+        --pkcs12 "$pkcs12_archive" \
+        --pwd "$passwd" \
+        --trusted-pem "$cacert" \
+        "$xmldoc"

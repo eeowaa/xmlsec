@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Uses hybrid encryption -->
+<EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#" Type="http://www.w3.org/2001/04/xmlenc#Element">
+
+  <!-- Symmetric encryption algorithm for XML DATA -->
+  <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+
+  <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <EncryptedKey xmlns="http://www.w3.org/2001/04/xmlenc#">
+
+      <!-- Asymmetric encryption algorithm for SECRET KEY -->
+      <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+
+      <CipherData>
+        <!-- Placeholder for SECRET KEY encrypted with PUBLIC KEY -->
+        <CipherValue/>
+      </CipherData>
+
+    </EncryptedKey>
+  </KeyInfo>
+
+  <CipherData>
+    <!-- Placeholder for XML DATA encrypted with SECRET KEY -->
+    <CipherValue/>
+  </CipherData>
+
+</EncryptedData>

@@ -1,0 +1,7 @@
+#!/bin/sh
+progdir=`dirname "$0"`
+. "$progdir/config.sh"
+
+set -x
+xmlsec1 --verify \
+        "$signed_xmldoc"

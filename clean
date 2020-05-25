@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+# Restore directory to its original state
+find . -type f \( -name '*signed*'    \
+               -o -name '*encrypted*' \
+               -o -name '*.key'       \
+               -o -name '*.cer'       \
+               -o -name '*.pem'       \
+               -o -name '*.pfx' \) -exec rm '{}' \;

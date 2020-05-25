@@ -1,0 +1,11 @@
+#!/bin/sh
+progdir=`dirname "$0"`
+. "$progdir/config.sh"
+
+set -x
+xmlsec1 --encrypt \
+        --pubkey-pem "$public_key" \
+        --session-key "$secret_key_type"-"$secret_key_size" \
+        --xml-data "$xmldoc" \
+        --output "$encrypted_xmldoc" \
+        "$xmlsec_template"
